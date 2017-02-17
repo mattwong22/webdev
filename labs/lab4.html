@@ -23,17 +23,9 @@
                 $("#submit").click(function(){
                 
                     var html = "";
-                    
-                   
                     var inspections;
-                    
-                    
                     var baseURL = 'https://data.cityofchicago.org/resource/rp42-fxjt.json';
-                    
-                    
                     var filters = "";
-                    
-                  
                     var url = baseURL + filters;
                         
                     $.getJSON(url).done (function (data) {
