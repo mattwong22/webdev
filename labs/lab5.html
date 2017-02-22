@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GTA in Chicago </title>
+    </head>
+    <body>
+        <h1>GTA in Chicago</h1>
+        
+        <button id="submit">Submit</button>
+        </p>
+        <div id="results"></div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script>
+
+            var crimes;
+            
+            $(function(){
+                
+                $("#submit").click(function(){
+                
+                    var html = "";
+                    
+                   
+                    var inspections;
+                   
+                    var baseURL = 'https://data.cityofchicago.org/resource/kf95-mnd6.json';
+                    
+                    
+                    var filters = "";
+                    
+                  
+                    var url = baseURL + filters;
+                        
+                    $.getJSON(url).done (function (data) {
+                        
+                        console.log(data);
+                   
+                        
+                        var robbery = 0;
+                        var theft = 0;
+                        var battery = 0;
+                        var assault = 0;
+                        var narcotics = 0;
+                        var other = 0;
+                        
+                        $.each(data, function(i,v){
+                           
+                           if(v.primary_type == "ROBBERY") {
+                               robbery++;
+                           } else if(v.primary_type == "THEFT"){
+                               theft++;
+                           } else if(v.primary_type == "BATTERY") {
+                               battery++;
+                           } else if(v.primary_type == "ASSAULT") {
+                               assault++;
+                           } else if(v.primary_type == "NARCOTICS") {
+                               narcotics++;
+                           } else {
+                               other++;
+                           }
+                        })
+                        
+                            
+                        
+                        google.charts.load('current', {'packages':['corechart']});
+                      google.charts.setOnLoadCallback(drawChart);
+                      function drawChart() {
+                
+                        var data = google.visualization.arrayToDataTable([
+                          ['Color', 'Number of crimes'],
+                          ['Robbery', robbery],
+                          ['Theft', theft],
+                          ['Battery', battery],
+                          ['Assault', assault],
+                          ['Narcotics', narcotics],
+                          ['Other',    other]
+                        ]);
+                
+                        var options = {
+                          title: 'GTA in Chicago'
+                        };
+                
+                        var chart = new google.visualization.PieChart(document.getElementById('results'));
+                
+                        chart.draw(data, options);
+                      }
+
+                    }) 
+                    
+                })  
+                
+            }) 
+            
+            
+        </script>
+    </body>
+</html>
