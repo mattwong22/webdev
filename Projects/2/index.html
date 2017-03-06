@@ -2,74 +2,183 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CTA BusTracker</title>
-  <style>
-     p, h1 {font-family: helvetica;}
-     p {font-size:1.5em;line-height:1.5em; margin-left: 24px;}
-     pre {font-size: 2em;}
-     div { border: 10px solid black; margin: 4px; border-radius: 5px; background-color: white}
-     body {background-color:blue;}
-  </style>
+  <title>Bus Stop Predictions</title>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
- 
-      <h2>Welcome to the CTA Bus Tracker</h2>
-      <input id="find" placeholder="Enter Bus Stop ID  #">
-      <button id="submit">Find my Bus</button>
-      
+  <h1>Bus Time Predictions</h1>
+    <div class = "mediumContainer">
+    <h2>Addison</h2>
+    </div>
+    <div class = "mediumContainer">  
+    <h2>Western</h2>
+    </div>
+  <div id = 'bigContainer'>  
+      <div id = 'Eastbound' class = "container"></div>
+      <div id = 'Westbound' class = "container"></div>
+      <div id = 'Northbound' class = "container"></div>
+      <div id = 'Southbound' class = "container"></div>
+  </div>
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script>
-      
-  
-      
         $(function() {
           
           
           var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
           
-          var apiEndpoint = "http://www.ctabustracker.com/bustime/api/v2/getpredictions";
+          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
           
-          //var findBus = $("find").val();
           
           $.ajax({
               url: apiPassThruUrl,
               dataType: "json",
               method: 'GET',
               data: {"apiEndpoint": apiEndpoint,
-                      "key" : "9se4a7jSt2TGahhJniMTSKzyX",
-                      "stpid" : "1738",
+                      "key" : "xiP5GrU6kqvnMUgxPeMwATG2v",
+                      "rt" : "152,49",
+                      "stpid" :"12525,12571,8417,8195",
                       "format":"json"}
             }).done (function (data) {
               console.log(data);
-          
-           
-          //  if (stpid = findBus) {
-            
               $.each(data["bustime-response"]["prd"], function(i,v) {
-                 var html = "<div>" + 
-                 "<p>Stop ID: " + v.stpid + "</p>" +
-                 "<p>Route: " + v.rt + "</p>" +
-                 "<p>Bus Stop: " + v.stpnm + "</p>" +
-                 "<p>Direction: " + v.rtdir + "</p>" +
-                 "<p>To: " + v.des + "<p>" +
-                 "<p>Arrives in: " + v.prdctdn + " MINUTES</p>" +
-                 "</div>"
-                 
-                 $("body").append(html);
-                
-              })
-              
-           // };
-            
-      
+                  $("#" + v.rtdir).append("<div class = 'box'>" + 
+                  "<h2 id = 'stopHead'>Stop: " 
+                  + v.stpnm + "</h2>" + "<div id = 'contents>'" + "<br>" + 
+                  "<p class = 'nobr'> Direction: "
+                  + v.rtdir + "</p>" +
+                  "<p> Destination: " + v.des + "</p>" 
+                  + "<p class = 'bold' id = estimate>"+ "Time until Arrival: "
+                  + v.prdctdn + " minutes" + "</p>" + "</div>"
+                   ) 
+                + "</div>";
+              });
 
             });
         });
-            
-   
+</script>
+ 
+</body><!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bus Stop Predictions</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <h1>Bus Time Predictions</h1>
+    <div class = "mediumContainer">
+    <h2>Addison</h2>
+    </div>
+    <div class = "mediumContainer">  
+    <h2>Western</h2>
+    </div>
+  <div id = 'bigContainer'>  
+      <div id = 'Eastbound' class = "container"></div>
+      <div id = 'Westbound' class = "container"></div>
+      <div id = 'Northbound' class = "container"></div>
+      <div id = 'Southbound' class = "container"></div>
+  </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+        $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "xiP5GrU6kqvnMUgxPeMwATG2v",
+                      "rt" : "152,49",
+                      "stpid" :"12525,12571,8417,8195",
+                      "format":"json"}
+            }).done (function (data) {
+              console.log(data);
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#" + v.rtdir).append("<div class = 'box'>" + 
+                  "<h2 id = 'stopHead'>Stop: " 
+                  + v.stpnm + "</h2>" + "<div id = 'contents>'" + "<br>" + 
+                  "<p class = 'nobr'> Direction: "
+                  + v.rtdir + "</p>" +
+                  "<p> Destination: " + v.des + "</p>" 
+                  + "<p class = 'bold' id = estimate>"+ "Time until Arrival: "
+                  + v.prdctdn + " minutes" + "</p>" + "</div>"
+                   ) 
+                + "</div>";
+              });
+
+            });
+        });
+</script>
+ 
+</body><!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bus Stop Predictions</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <h1>Bus Time Predictions</h1>
+    <div class = "mediumContainer">
+    <h2>Addison</h2>
+    </div>
+    <div class = "mediumContainer">  
+    <h2>Western</h2>
+    </div>
+  <div id = 'bigContainer'>  
+      <div id = 'Eastbound' class = "container"></div>
+      <div id = 'Westbound' class = "container"></div>
+      <div id = 'Northbound' class = "container"></div>
+      <div id = 'Southbound' class = "container"></div>
+  </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+        $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "xiP5GrU6kqvnMUgxPeMwATG2v",
+                      "rt" : "152,49",
+                      "stpid" :"12525,12571,8417,8195",
+                      "format":"json"}
+            }).done (function (data) {
+              console.log(data);
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#" + v.rtdir).append("<div class = 'box'>" + 
+                  "<h2 id = 'stopHead'>Stop: " 
+                  + v.stpnm + "</h2>" + "<div id = 'contents>'" + "<br>" + 
+                  "<p class = 'nobr'> Direction: "
+                  + v.rtdir + "</p>" +
+                  "<p> Destination: " + v.des + "</p>" 
+                  + "<p class = 'bold' id = estimate>"+ "Time until Arrival: "
+                  + v.prdctdn + " minutes" + "</p>" + "</div>"
+                   ) 
+                + "</div>";
+              });
+
+            });
+        });
 </script>
  
 </body>
-</html>
