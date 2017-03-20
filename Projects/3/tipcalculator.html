@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tip Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page">
+  <div data-role="header">
+    <h1>Tip Calculator</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <form >
+      <div class="ui-field-contain">
+        <label for="checkAmount">Check Amount $</label>
+        <input type="text" name="checkAmount" id="checkAmount" placeholder="e.g., 123.45">
+        <label for="tipPct">Tip Percent %</label>
+        <input type="text" name="tipPct" id="tipPct" placeholder="e.g., 15">
+      </div>``
+      <input type="button" data-inline="true" value="Calculate Tip Amount" onclick="calculateTip();">
+    </form>
+    
+    <p id="tipAmount"></p>
+    
+  </div>
+
+</div>
+<script>
+  
+function calculateTip() {
+  // store the value for the check amount in a variable
+  var checkAmount = <put code to get the check amount here>;
+
+  // store the value for the tip percentage in a variable  
+  var tipPercent = <put code to get the tip percentage here>;
+
+  // store the calculated tip amount in a variable
+  var tipAmount = <put code to calculate the tip here>;
+  
+  // display a message that includes the tip amount 
+  document.getElementById("tipAmount").innerHTML = 
+    "The tip amount is $" + tipAmount;
+  
+  
+}  
+</script>
+</body>
+</html>

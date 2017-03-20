@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Towed Vehicles</title>
+        <style>
+            body {
+                background-color:pink;
+            }
+            p, h1 {font-family: helvetica; color: red;}
+            p {font-size:1.5em;line-height:1.5em; margin-left: 24px; color: red;}
+            pre {font-size: 2em;}
+            div { border: 10px solid black; margin: 12px; border-radius: 15px; background-color: #ededed}
+            
+            #iframe{
+               width:660px;
+               height:660px;
+        </style>
+    </head>
+   <body>
+        <h1 id="title">Towed Vehicle Data Display @CityOfChicago</h1>
+        <input type="text" id='input' name="search" placeholder="Liscence Plate ">
+        <button id='submit'>Find my car</button>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            /*
+                This script retrieves 311 pot hole service request data for 
+                from the 
+                City of Chicago Data Portal
+                
+                This script doesn't update the DOM.
+    
+            */
+            
+            $('#submit').click(function(){
+                var baseURL = 'https://data.cityofchicago.org/resource/rp42-fxjt.json';
+                var license = $('#input').val();
+                var filters = '?plate=' + license;
+                // full URL
+                var url = baseURL + filters;
+                console.log(url);
+                console.log(license)
+
+                    // jQuery command to retrieve json data
+                    
+                    $.getJSON(url)
+                        .done (function (data) {
+                            // TODO:  add script to add data to the DOM
+                            console.log(data);
+                        var inspections = data
+                            // loop through the records
+                        if (inspections.length==0) {
+                            var html = '<p>No car has been found</p>';
+                            $("body").append(html)
+                        }
+                        else {
+                        $.each(data, function(index, value){
+                           var html = '<div id="iframe"><iframe src="//www.google.com/maps/embed/v1/place?q=' 
+                           + value.towed_to_address +'&zoom=15&key=AIzaSyDDuRUPt247zE9zMvcot049QWlW6WzPjdw"></iframe>' +
+                           "<hr>" + "<h1>License Plate #: " + value.plate + "</h1>" +
+                           "<p>Color: " + value.color + "</p>" + 
+                           "<p>Make: " + value.make + "</p>" +
+                           "<p>State: " + value.state + "</p>" +
+                           "<p>Tow Date: " +value.tow_date + "</p>" +
+                           "<p>Towed to Address: " + value.towed_to_address +"</p>" +
+                           "<p>Inventory Number: " + value.inventory_number + "</p>" +
+                           "<p>Tow Facility Phone: " + value.tow_facility_phone + "</p>" +
+                           "<hr>" +
+                           "</div>";
+                           
+                           $("body").append(html);
+                           
+                        });
+                        }
+                        });
+                    
+            })
+            
+        </script>
+    </body>
+
+
+</html>        
