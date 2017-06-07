@@ -85,7 +85,7 @@
         }
 
         function drawScore(){
-	        ctx.font = "16px Comic Sans MS";
+	        ctx.font = "16px Times New Roman";
 	        ctx.fillStyle = "black";
 	        ctx.fillText("Score: " + score, 8, 20);
         }
@@ -162,7 +162,7 @@
                 paddleX -= 7;
             }
         }
-        setInterval(draw, 5);
+        
 
         document.addEventListener("keydown", keyDownHandler, false);
         document.addEventListener("keyup", keyUpHandler, false);
@@ -184,6 +184,7 @@
                 leftPressed = false;
             }
         }
+        setInterval(draw, 12);
     </script>
 </body>
 
