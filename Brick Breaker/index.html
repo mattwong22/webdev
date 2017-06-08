@@ -100,8 +100,8 @@
                             b.status = 0;
                             score ++;
                             if (score == brickRowCount * brickColumnCount) {
-                                alert("Congratulations, you won");
-                                document.location.reload();
+                                alert("Winner winner chicken dinner");
+                                document.location.reload() 
                             }
                         }
                     }
@@ -113,7 +113,7 @@
         function drawBall() {
             ctx.beginPath();
             ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "purple";
             ctx.fill();
             ctx.closePath();
         }
@@ -121,7 +121,7 @@
         function drawPaddle() {
             ctx.beginPath();
             ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "purple";
             ctx.fill();
             ctx.closePath();
         }
