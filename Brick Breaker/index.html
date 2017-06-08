@@ -23,12 +23,12 @@
 
 <body>
     <h1>Brick Breaker</h1>
-    <canvas id="myCanvas" width="480" height="320">
+    <canvas id="myCanvas" width="800" height= "620">
         </canvas>
     <script>
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
-
+        
         var x = canvas.width / 2;
         var y = canvas.height - 30;
         var dx = 2;
@@ -36,14 +36,14 @@
         var ballRadius = 10;
 
         var paddleHeight = 10;
-        var paddleWidth = 75;
+        var paddleWidth = 125;
         var paddleX = (canvas.width - paddleWidth) / 2;
 
         var rightPressed = false;
         var leftPressed = false;
         
-        var brickRowCount = 3;
-        var brickColumnCount = 5;
+        var brickRowCount = 9;
+        var brickColumnCount = 9;
         var brickWidth = 75;
         var brickHeight = 20;
         var brickPadding = 10;
@@ -184,7 +184,7 @@
                 leftPressed = false;
             }
         }
-        setInterval(draw, 12);
+        setInterval(draw, 7);
     </script>
 </body>
 
